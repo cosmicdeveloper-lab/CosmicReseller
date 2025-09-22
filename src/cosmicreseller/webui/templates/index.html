@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CosmicReseller WebUI</title>
+  <link rel="stylesheet" href="{{ url_for('webui.static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <h1>🚀 CosmicReseller</h1>
+  <form method="post" class="card">
+    <label>
+      Source
+      <select name="source">
+        <option value="facebook" {{ 'selected' if source=='facebook' else '' }}>Facebook</option>
+        <option value="ebay" {{ 'selected' if source=='ebay' else '' }}>eBay</option>
+      </select>
+    </label>
+
+    <label>
+      Keyword
+      <input type="text" name="keyword" value="{{ keyword }}" placeholder="e.g. iPhone 13" required>
+    </label>
+
+    <div class="row">
+      <label>
+        Max pages
+        <input type="number" name="max_items" min="1" value="{{ max_items }}" required>
+      </label>
+      <label>
+        Threshold ratio
+        <input type="number" name="threshold_ratio" step="0.01" min="0.01" max="0.99" value="{{ threshold_ratio }}" required>
+        <small>(0.8 means 20% below average)</small>
+      </label>
+    </div>
+
+    <button type="submit">Search</button>
+
+    {% if error %}
+      <p class="error">⚠️ {{ error }}</p>
+    {% endif %}
+  </form>
+
+  {% if avg_price is not none %}
+    <div class="card">
+      <h2>Results</h2>
+      <p><strong>Average Market Price:</strong> £{{ "%.2f"|format(avg_price) }}</p>
+
+      {% if items %}
+        <table>
+          <thead><tr><th>Title</th><th>Price</th><th>Link</th></tr></thead>
+          <tbody>
+          {% for title, price, link in items %}
+            <tr>
+              <td>{{ title }}</td>
+              <td>£{{ "%.0f"|format(price) }}</td>
+              <td><a href="{{ link }}" target="_blank" rel="noopener">Open</a></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No cheap items found.</p>
+      {% endif %}
+    </div>
+  {% endif %}
+</body>
+</html>
