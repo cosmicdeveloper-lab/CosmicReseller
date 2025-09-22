@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cosmicreseller
+    env_file:
+      - .env
+    volumes:
+      - ./scripts/playwright_profile:/app/src/cosmicreseller/playwright_profile
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    init: true
