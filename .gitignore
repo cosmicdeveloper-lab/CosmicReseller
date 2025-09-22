@@ -1,0 +1,46 @@
+# Python cache/bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+
+# Virtual environments
+.venv/
+.venv*/
+venv/
+env/
+.envrc
+
+# Secrets
+.env
+*.secret
+*.key
+
+# Playwright profiles & browser cache
+playwright/.cache/
+playwright-report/
+playwright-profile/
+playwright_profile/
+
+# IDE/editor files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test/coverage outputs
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+
+# Build/packaging
+build/
+dist/
+*.egg-info/
+*.egg
